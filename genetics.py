@@ -38,6 +38,20 @@ class Genetics:
             result = (op+data)
             return {x: getattr(result, f'alias_{x}') for x in study_ids}
 
+    def top_overlapped_studies(self, study_ids, data_frame=True):
+        op = Operation(Query)
+
+        for study_id in study_ids:
+            s = op.top_overlapped_studies(study_id=study_id, __alias__='alias_' + study_id)
+            s.__fields__()
+
+        data = self.endpoint(op)
+        if data_frame:
+            return pd.json_normalize(data['data'].values(), sep='_')
+        else:
+            result = (op+data)
+            return {x: getattr(result, f'alias_{x}') for x in study_ids}
+
     def manhattan(self, study_ids, data_frame=True):
         op = Operation(Query)
 
