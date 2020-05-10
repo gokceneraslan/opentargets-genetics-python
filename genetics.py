@@ -24,12 +24,19 @@ class Genetics:
             result = (op+data)
             return {x: getattr(result, f'alias_{x}') for x in variants}
         
-    def study_info(self, study_id):
+    def study_info(self, study_ids, data_frame=True):
         op = Operation(Query)
-        op.study_info(study_id=study_id)
-        data = self.endpoint(op)
-        return data['data']['study_info']
         
+        for study_id in study_ids:
+            s = op.study_info(study_id=study_id, __alias__='alias_' + study_id)
+            s.__fields__()
+            
+        data = self.endpoint(op)
+        if data_frame:
+            return pd.json_normalize(data['data'].values(), sep='_')
+        else:
+            result = (op+data)
+            return {x: getattr(result, f'alias_{x}') for x in study_ids}        
         
     def manhattan(self, study_ids, data_frame=True):
         op = Operation(Query)
