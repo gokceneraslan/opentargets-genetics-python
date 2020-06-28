@@ -66,7 +66,7 @@ class Genetics:
             m.associations.best_locus2_genes.gene.symbol()
 
             m.associations().__fields__()
-            m.associations().variant().id()
+            m.associations().variant().__fields__()
 
         data = self.endpoint(op)
         if data_frame:
@@ -76,6 +76,55 @@ class Genetics:
                     dfs.append(json_normalize(alias, sep='_').assign(study=study.split('alias_')[1]))
             if dfs:
                 return pd.concat(dfs, axis=0).reset_index(drop=True)
+        else:
+            result = (op+data)
+            return {x: getattr(result, f'alias_{x}') for x in study_ids}
+
+    def tag_variants_and_studies_for_index_variant(self, index_variants, study_id=None, data_frame=True):
+        op = Operation(Query)
+
+        for index_variant in index_variants:
+            s = op.tag_variants_and_studies_for_index_variant(variant_id=index_variant, __alias__='alias_' + index_variant)
+            s.associations.study.__fields__('study_id')
+            s.associations().__fields__()
+
+        data = self.endpoint(op)
+
+        if data_frame:
+            dfs = []
+            for variant, aliases in data['data'].items():
+                for alias in aliases['associations']:
+                    dfs.append(json_normalize(alias, sep='_').assign(queryVariant=variant.split('alias_')[1]))
+            if dfs:
+                df = pd.concat(dfs, axis=0).reset_index(drop=True)
+                if study_id is not None:
+                    df = df[df.study_studyId == study_id]
+                return df
+        else:
+            result = (op+data)
+            return {x: getattr(result, f'alias_{x}') for x in study_ids}
+        
+        
+    def index_variants_and_studies_for_tag_variant(self, index_variants, study_id=None, data_frame=True):
+        op = Operation(Query)
+
+        for index_variant in index_variants:
+            s = op.index_variants_and_studies_for_tag_variant(variant_id=index_variant, __alias__='alias_' + index_variant)
+            s.associations.study.__fields__('study_id')
+            s.associations().__fields__()
+
+        data = self.endpoint(op)
+
+        if data_frame:
+            dfs = []
+            for variant, aliases in data['data'].items():
+                for alias in aliases['associations']:
+                    dfs.append(json_normalize(alias, sep='_').assign(queryVariant=variant.split('alias_')[1]))
+            if dfs:
+                df = pd.concat(dfs, axis=0).reset_index(drop=True)
+                if study_id is not None:
+                    df = df[df.study_studyId == study_id]
+                return df
         else:
             result = (op+data)
             return {x: getattr(result, f'alias_{x}') for x in study_ids}
