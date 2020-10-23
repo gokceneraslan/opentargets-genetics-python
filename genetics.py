@@ -64,6 +64,7 @@ class Genetics:
             m.associations.best_coloc_genes.gene.symbol()
             m.associations.best_locus2_genes.gene.id()
             m.associations.best_locus2_genes.gene.symbol()
+            m.associations.best_locus2_genes.score()
 
             m.associations().__fields__()
             m.associations().variant().__fields__()
