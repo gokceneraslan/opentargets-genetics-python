@@ -1,4 +1,4 @@
-pfrom sgqlc.endpoint.http import HTTPEndpoint
+from sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
 
 from graphql_types import *
