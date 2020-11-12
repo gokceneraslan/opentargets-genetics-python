@@ -1,10 +1,11 @@
-from sgqlc.endpoint.http import HTTPEndpoint
+pfrom sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
 
 from graphql_types import *
 
 from pandas import json_normalize
 import pandas as pd
+import numpy as np
 
 
 class Genetics:
@@ -23,6 +24,31 @@ class Genetics:
         else:
             result = (op+data)
             return {x: getattr(result, f'alias_{x}') for x in variants}
+        
+        
+    def search_rsid(self, rs_ids, data_frame=True):
+        op = Operation(Query)
+
+        for rs in rs_ids:
+            s = op.search(query_string=rs, __alias__='alias_' + rs)
+            s.variants.id()
+            s.variants.rs_id()
+
+        data = self.endpoint(op)
+        if data_frame:
+            dfs = []
+            for q, aliases in data['data'].items():
+                if aliases['variants']:
+                    for alias in aliases['variants']:
+                        dfs.append(pd.DataFrame(dict(id=[alias['id']])).assign(rsid=q.split('alias_')[1]))
+                else:
+                    dfs.append(pd.DataFrame(dict(id=[np.nan])).assign(rsid=q.split('alias_')[1]))
+            if dfs:
+                return pd.concat(dfs, axis=0).reset_index(drop=True)    
+        else:
+            result = (op+data)
+            return {x: getattr(result, f'alias_{x}') for x in rs_ids}
+
 
     def study_info(self, study_ids, data_frame=True):
         op = Operation(Query)
