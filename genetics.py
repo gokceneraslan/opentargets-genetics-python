@@ -57,12 +57,34 @@ class Genetics:
             s = op.study_info(study_id=study_id, __alias__='alias_' + study_id)
             s.__fields__()
 
-        data = self.endpoint(op)
+        try:
+            data = self.endpoint(op)
+        except:
+            data = self.endpoint(op)
         if data_frame:
             return pd.json_normalize(data['data'].values(), sep='_')
         else:
             result = (op+data)
             return {x: getattr(result, f'alias_{x}') for x in study_ids}
+                
+
+    def variant_info(self, variant_ids, data_frame=True):
+        op = Operation(Query)
+
+        for variant_id in variant_ids:
+            s = op.variant_info(variant_id=variant_id, __alias__='alias_' + variant_id)
+            s.__fields__()
+
+        try:
+            data = self.endpoint(op)
+        except:
+            data = self.endpoint(op)
+        if data_frame:
+            return pd.json_normalize(data['data'].values(), sep='_')
+        else:
+            result = (op+data)
+            return {x: getattr(result, f'alias_{x}') for x in study_ids}
+        
 
     def top_overlapped_studies(self, study_ids, data_frame=True):
         op = Operation(Query)
@@ -95,7 +117,10 @@ class Genetics:
             m.associations().__fields__()
             m.associations().variant().__fields__()
 
-        data = self.endpoint(op)
+        try:
+            data = self.endpoint(op)
+        except:
+            data = self.endpoint(op)
         if data_frame:
             dfs = []
             for study, aliases in data['data'].items():
