@@ -24,6 +24,13 @@ String = sgqlc.types.String
 ########################################################################
 # Input Objects
 ########################################################################
+class Pagination(sgqlc.types.Input):
+    __schema__ = graphql_types
+    __field_names__ = ('index', 'size')
+    index = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='index')
+    size = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='size')
+
+
 
 ########################################################################
 # Output Objects and Interfaces
@@ -147,15 +154,15 @@ class Gecko(sgqlc.types.Type):
 
 class Gene(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('id', 'symbol', 'description', 'chromosome', 'start', 'end', 'tss', 'bio_type', 'fwd_strand', 'exons')
+    __field_names__ = ('id', 'symbol', 'bio_type', 'description', 'chromosome', 'tss', 'start', 'end', 'fwd_strand', 'exons')
     id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
     symbol = sgqlc.types.Field(String, graphql_name='symbol')
+    bio_type = sgqlc.types.Field(String, graphql_name='bioType')
     description = sgqlc.types.Field(String, graphql_name='description')
     chromosome = sgqlc.types.Field(String, graphql_name='chromosome')
+    tss = sgqlc.types.Field(Long, graphql_name='tss')
     start = sgqlc.types.Field(Long, graphql_name='start')
     end = sgqlc.types.Field(Long, graphql_name='end')
-    tss = sgqlc.types.Field(Long, graphql_name='tss')
-    bio_type = sgqlc.types.Field(String, graphql_name='bioType')
     fwd_strand = sgqlc.types.Field(Boolean, graphql_name='fwdStrand')
     exons = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Long))), graphql_name='exons')
 
@@ -177,7 +184,7 @@ class GeneTagVariant(sgqlc.types.Type):
     __field_names__ = ('gene_id', 'tag_variant_id', 'overall_score')
     gene_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='geneId')
     tag_variant_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='tagVariantId')
-    overall_score = sgqlc.types.Field(Float, graphql_name='overallScore')
+    overall_score = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='overallScore')
 
 
 class IndexVariantAssociation(sgqlc.types.Type):
@@ -243,11 +250,14 @@ class Manhattan(sgqlc.types.Type):
 
 class ManhattanAssociation(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('variant', 'pval', 'pval_mantissa', 'pval_exponent', 'odds_ratio', 'odds_ratio_cilower', 'odds_ratio_ciupper', 'beta', 'beta_cilower', 'beta_ciupper', 'direction', 'best_genes', 'best_coloc_genes', 'best_locus2_genes', 'credible_set_size', 'ld_set_size', 'total_set_size')
-    variant = sgqlc.types.Field(sgqlc.types.non_null('Variant'), graphql_name='variant')
-    pval = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='pval')
+    __field_names__ = ('pval_mantissa', 'pval_exponent', 'credible_set_size', 'ld_set_size', 'total_set_size', 'variant', 'pval', 'odds_ratio', 'odds_ratio_cilower', 'odds_ratio_ciupper', 'beta', 'beta_cilower', 'beta_ciupper', 'direction', 'best_genes', 'best_coloc_genes', 'best_locus2_genes')
     pval_mantissa = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='pvalMantissa')
     pval_exponent = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='pvalExponent')
+    credible_set_size = sgqlc.types.Field(Long, graphql_name='credibleSetSize')
+    ld_set_size = sgqlc.types.Field(Long, graphql_name='ldSetSize')
+    total_set_size = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='totalSetSize')
+    variant = sgqlc.types.Field(sgqlc.types.non_null('Variant'), graphql_name='variant')
+    pval = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='pval')
     odds_ratio = sgqlc.types.Field(Float, graphql_name='oddsRatio')
     odds_ratio_cilower = sgqlc.types.Field(Float, graphql_name='oddsRatioCILower')
     odds_ratio_ciupper = sgqlc.types.Field(Float, graphql_name='oddsRatioCIUpper')
@@ -258,9 +268,14 @@ class ManhattanAssociation(sgqlc.types.Type):
     best_genes = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null('ScoredGene'))), graphql_name='bestGenes')
     best_coloc_genes = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null('ScoredGene'))), graphql_name='bestColocGenes')
     best_locus2_genes = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null('ScoredGene'))), graphql_name='bestLocus2Genes')
-    credible_set_size = sgqlc.types.Field(Long, graphql_name='credibleSetSize')
-    ld_set_size = sgqlc.types.Field(Long, graphql_name='ldSetSize')
-    total_set_size = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='totalSetSize')
+
+
+class Metadata(sgqlc.types.Type):
+    __schema__ = graphql_types
+    __field_names__ = ('name', 'api_version', 'data_version')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    api_version = sgqlc.types.Field(sgqlc.types.non_null('Version'), graphql_name='apiVersion')
+    data_version = sgqlc.types.Field(sgqlc.types.non_null('Version'), graphql_name='dataVersion')
 
 
 class Overlap(sgqlc.types.Type):
@@ -283,16 +298,17 @@ class OverlappedInfoForStudy(sgqlc.types.Type):
 
 class OverlappedStudy(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('study', 'num_overlap_loci')
-    study = sgqlc.types.Field(sgqlc.types.non_null('Study'), graphql_name='study')
+    __field_names__ = ('study_id', 'study', 'num_overlap_loci')
+    study_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='studyId')
+    study = sgqlc.types.Field('Study', graphql_name='study')
     num_overlap_loci = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='numOverlapLoci')
 
 
 class OverlappedVariantsStudies(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('study', 'overlaps')
-    study = sgqlc.types.Field('Study', graphql_name='study')
+    __field_names__ = ('overlaps', 'study')
     overlaps = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Overlap))), graphql_name='overlaps')
+    study = sgqlc.types.Field('Study', graphql_name='study')
 
 
 class PheWAS(sgqlc.types.Type):
@@ -304,15 +320,16 @@ class PheWAS(sgqlc.types.Type):
 
 class PheWASAssociation(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('study', 'pval', 'beta', 'n_total', 'n_cases', 'odds_ratio', 'eaf', 'se')
-    study = sgqlc.types.Field('Study', graphql_name='study')
-    pval = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='pval')
+    __field_names__ = ('study_id', 'eaf', 'beta', 'se', 'pval', 'n_total', 'n_cases', 'study', 'odds_ratio')
+    study_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='studyId')
+    eaf = sgqlc.types.Field(Float, graphql_name='eaf')
     beta = sgqlc.types.Field(Float, graphql_name='beta')
+    se = sgqlc.types.Field(Float, graphql_name='se')
+    pval = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name='pval')
     n_total = sgqlc.types.Field(Long, graphql_name='nTotal')
     n_cases = sgqlc.types.Field(Long, graphql_name='nCases')
+    study = sgqlc.types.Field('Study', graphql_name='study')
     odds_ratio = sgqlc.types.Field(Float, graphql_name='oddsRatio')
-    eaf = sgqlc.types.Field(Float, graphql_name='eaf')
-    se = sgqlc.types.Field(Float, graphql_name='se')
 
 
 class QTLColocalisation(sgqlc.types.Type):
@@ -349,11 +366,11 @@ class QTLTissue(sgqlc.types.Type):
 
 class Query(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('search', 'genes', 'gene_info', 'study_info', 'variant_info', 'studies_for_gene', 'study_locus2_gene_table', 'manhattan', 'top_overlapped_studies', 'overlap_info_for_study', 'tag_variants_and_studies_for_index_variant', 'index_variants_and_studies_for_tag_variant', 'phe_was', 'gecko', 'genes_for_variant_schema', 'genes_for_variant', 'gwas_regional', 'qtl_regional', 'study_and_lead_variant_info', 'gwas_credible_set', 'qtl_credible_set', 'colocalisations_for_gene', 'gwas_colocalisation_for_region', 'gwas_colocalisation', 'qtl_colocalisation', 'studies_and_lead_variants_for_gene', 'studies_and_lead_variants_for_gene_by_l2_g')
+    __field_names__ = ('meta', 'search', 'genes', 'gene_info', 'study_info', 'variant_info', 'studies_for_gene', 'study_locus2_gene_table', 'manhattan', 'top_overlapped_studies', 'overlap_info_for_study', 'tag_variants_and_studies_for_index_variant', 'index_variants_and_studies_for_tag_variant', 'phe_was', 'gecko', 'genes_for_variant_schema', 'genes_for_variant', 'gwas_regional', 'qtl_regional', 'study_and_lead_variant_info', 'gwas_credible_set', 'qtl_credible_set', 'colocalisations_for_gene', 'gwas_colocalisation_for_region', 'gwas_colocalisation', 'qtl_colocalisation', 'studies_and_lead_variants_for_gene', 'studies_and_lead_variants_for_gene_by_l2_g')
+    meta = sgqlc.types.Field(sgqlc.types.non_null(Metadata), graphql_name='meta')
     search = sgqlc.types.Field(sgqlc.types.non_null('SearchResult'), graphql_name='search', args=sgqlc.types.ArgDict((
         ('query_string', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='queryString', default=None)),
-        ('page_index', sgqlc.types.Arg(Int, graphql_name='pageIndex', default=None)),
-        ('page_size', sgqlc.types.Arg(Int, graphql_name='pageSize', default=None)),
+        ('page', sgqlc.types.Arg(Pagination, graphql_name='page', default=None)),
 ))
     )
     genes = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Gene))), graphql_name='genes', args=sgqlc.types.ArgDict((
@@ -561,24 +578,25 @@ class StudiesAndLeadVariantsForGene(sgqlc.types.Type):
 
 class Study(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('study_id', 'trait_reported', 'trait_efos', 'pmid', 'pub_date', 'pub_journal', 'pub_title', 'pub_author', 'has_sums_stats', 'ancestry_initial', 'ancestry_replication', 'n_initial', 'n_replication', 'n_cases', 'n_total', 'trait_category', 'num_assoc_loci')
+    __field_names__ = ('study_id', 'trait_reported', 'source', 'trait_efos', 'pmid', 'pub_date', 'pub_journal', 'pub_title', 'pub_author', 'has_sumstats', 'ancestry_initial', 'ancestry_replication', 'n_initial', 'n_replication', 'n_cases', 'trait_category', 'num_assoc_loci', 'n_total')
     study_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='studyId')
     trait_reported = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='traitReported')
+    source = sgqlc.types.Field(String, graphql_name='source')
     trait_efos = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='traitEfos')
     pmid = sgqlc.types.Field(String, graphql_name='pmid')
     pub_date = sgqlc.types.Field(String, graphql_name='pubDate')
     pub_journal = sgqlc.types.Field(String, graphql_name='pubJournal')
     pub_title = sgqlc.types.Field(String, graphql_name='pubTitle')
     pub_author = sgqlc.types.Field(String, graphql_name='pubAuthor')
-    has_sums_stats = sgqlc.types.Field(Boolean, graphql_name='hasSumsStats')
+    has_sumstats = sgqlc.types.Field(Boolean, graphql_name='hasSumstats')
     ancestry_initial = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ancestryInitial')
     ancestry_replication = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ancestryReplication')
     n_initial = sgqlc.types.Field(Long, graphql_name='nInitial')
     n_replication = sgqlc.types.Field(Long, graphql_name='nReplication')
     n_cases = sgqlc.types.Field(Long, graphql_name='nCases')
-    n_total = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='nTotal')
     trait_category = sgqlc.types.Field(String, graphql_name='traitCategory')
     num_assoc_loci = sgqlc.types.Field(Long, graphql_name='numAssocLoci')
+    n_total = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='nTotal')
 
 
 class StudyForGene(sgqlc.types.Type):
@@ -690,16 +708,15 @@ class V2DOdds(sgqlc.types.Type):
 
 class Variant(sgqlc.types.Type):
     __schema__ = graphql_types
-    __field_names__ = ('id', 'id_b37', 'rs_id', 'chromosome', 'position', 'chromosome_b37', 'position_b37', 'ref_allele', 'alt_allele', 'nearest_gene', 'nearest_gene_distance', 'nearest_coding_gene', 'nearest_coding_gene_distance', 'most_severe_consequence', 'cadd_raw', 'cadd_phred', 'gnomad_afr', 'gnomad_amr', 'gnomad_asj', 'gnomad_eas', 'gnomad_fin', 'gnomad_nfe', 'gnomad_nfeest', 'gnomad_nfenwe', 'gnomad_nfeseu', 'gnomad_nfeonf', 'gnomad_oth')
-    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
-    id_b37 = sgqlc.types.Field(String, graphql_name='idB37')
-    rs_id = sgqlc.types.Field(String, graphql_name='rsId')
+    __field_names__ = ('chromosome', 'position', 'ref_allele', 'alt_allele', 'rs_id', 'chromosome_b37', 'position_b37', 'id', 'nearest_gene', 'nearest_gene_distance', 'nearest_coding_gene', 'nearest_coding_gene_distance', 'most_severe_consequence', 'cadd_raw', 'cadd_phred', 'gnomad_afr', 'gnomad_amr', 'gnomad_asj', 'gnomad_eas', 'gnomad_fin', 'gnomad_nfe', 'gnomad_nfeest', 'gnomad_nfenwe', 'gnomad_nfeseu', 'gnomad_nfeonf', 'gnomad_oth')
     chromosome = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='chromosome')
     position = sgqlc.types.Field(sgqlc.types.non_null(Long), graphql_name='position')
-    chromosome_b37 = sgqlc.types.Field(String, graphql_name='chromosomeB37')
-    position_b37 = sgqlc.types.Field(Long, graphql_name='positionB37')
     ref_allele = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='refAllele')
     alt_allele = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='altAllele')
+    rs_id = sgqlc.types.Field(String, graphql_name='rsId')
+    chromosome_b37 = sgqlc.types.Field(String, graphql_name='chromosomeB37')
+    position_b37 = sgqlc.types.Field(Long, graphql_name='positionB37')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
     nearest_gene = sgqlc.types.Field(Gene, graphql_name='nearestGene')
     nearest_gene_distance = sgqlc.types.Field(Long, graphql_name='nearestGeneDistance')
     nearest_coding_gene = sgqlc.types.Field(Gene, graphql_name='nearestCodingGene')
@@ -718,6 +735,14 @@ class Variant(sgqlc.types.Type):
     gnomad_nfeseu = sgqlc.types.Field(Float, graphql_name='gnomadNFESEU')
     gnomad_nfeonf = sgqlc.types.Field(Float, graphql_name='gnomadNFEONF')
     gnomad_oth = sgqlc.types.Field(Float, graphql_name='gnomadOTH')
+
+
+class Version(sgqlc.types.Type):
+    __schema__ = graphql_types
+    __field_names__ = ('major', 'minor', 'patch')
+    major = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='major')
+    minor = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='minor')
+    patch = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='patch')
 
 
 

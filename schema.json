@@ -1133,12 +1133,12 @@
           "possibleTypes": null
         },
         {
-          "description": "This element represents a simple gene object which contains id and name",
+          "description": null,
           "enumValues": null,
           "fields": [
             {
               "args": [],
-              "description": "Ensembl Gene ID of a gene",
+              "description": null,
               "name": "id",
               "type": {
                 "kind": "NON_NULL",
@@ -1152,7 +1152,7 @@
             },
             {
               "args": [],
-              "description": "Approved symbol name of a gene",
+              "description": null,
               "name": "symbol",
               "type": {
                 "kind": "SCALAR",
@@ -1162,57 +1162,7 @@
             },
             {
               "args": [],
-              "description": "Description of a gene",
-              "name": "description",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Chromosome",
-              "name": "chromosome",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Start position for the gene",
-              "name": "start",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Long",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "End position for the gene",
-              "name": "end",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Long",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Transcription start site",
-              "name": "tss",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Long",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Bio-type of the gene",
+              "description": null,
               "name": "bioType",
               "type": {
                 "kind": "SCALAR",
@@ -1222,7 +1172,57 @@
             },
             {
               "args": [],
-              "description": "Forward strand true or false",
+              "description": null,
+              "name": "description",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "chromosome",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "tss",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "start",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "end",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
               "name": "fwdStrand",
               "type": {
                 "kind": "SCALAR",
@@ -1232,7 +1232,7 @@
             },
             {
               "args": [],
-              "description": "Approved symbol name of a gene",
+              "description": null,
               "name": "exons",
               "type": {
                 "kind": "NON_NULL",
@@ -1401,12 +1401,12 @@
           "possibleTypes": null
         },
         {
-          "description": "",
+          "description": null,
           "enumValues": null,
           "fields": [
             {
               "args": [],
-              "description": "",
+              "description": null,
               "name": "geneId",
               "type": {
                 "kind": "NON_NULL",
@@ -1420,7 +1420,7 @@
             },
             {
               "args": [],
-              "description": "",
+              "description": null,
               "name": "tagVariantId",
               "type": {
                 "kind": "NON_NULL",
@@ -1434,12 +1434,16 @@
             },
             {
               "args": [],
-              "description": "",
+              "description": null,
               "name": "overallScore",
               "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
               }
             }
           ],
@@ -1930,9 +1934,71 @@
           "possibleTypes": null
         },
         {
-          "description": "This element represents an association between a trait and a variant through a study",
+          "description": null,
           "enumValues": null,
           "fields": [
+            {
+              "args": [],
+              "description": null,
+              "name": "pvalMantissa",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "pvalExponent",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Long",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": "The cardinal of the set defined as tag variants for an index variant coming from crediblesets",
+              "name": "credibleSetSize",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": "The cardinal of the set defined as tag variants for an index variant coming from ld expansion",
+              "name": "ldSetSize",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": "The cardinal of the set defined as tag variants for an index variant coming from any expansion",
+              "name": "totalSetSize",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Long",
+                  "ofType": null
+                }
+              }
+            },
             {
               "args": [],
               "description": "Index variant",
@@ -1957,34 +2023,6 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Float",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "description": "p-val between a study and an the provided index variant",
-              "name": "pvalMantissa",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Float",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "description": "p-val between a study and an the provided index variant",
-              "name": "pvalExponent",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Long",
                   "ofType": null
                 }
               }
@@ -2124,40 +2162,6 @@
                   }
                 }
               }
-            },
-            {
-              "args": [],
-              "description": "The cardinal of the set defined as tag variants for an index variant coming from crediblesets",
-              "name": "credibleSetSize",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Long",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "The cardinal of the set defined as tag variants for an index variant coming from ld expansion",
-              "name": "ldSetSize",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Long",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "The cardinal of the set defined as tag variants for an index variant coming from any expansion",
-              "name": "totalSetSize",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Long",
-                  "ofType": null
-                }
-              }
             }
           ],
           "inputFields": null,
@@ -2167,7 +2171,60 @@
           "possibleTypes": null
         },
         {
-          "description": "This element represent an overlap between two variants for two studies",
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "description": null,
+              "name": "name",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "apiVersion",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Version",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "dataVersion",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Version",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "Metadata",
+          "possibleTypes": null
+        },
+        {
+          "description": "This element represents an overlap between two variants for two studies",
           "enumValues": null,
           "fields": [
             {
@@ -2319,15 +2376,25 @@
             {
               "args": [],
               "description": "A study object",
-              "name": "study",
+              "name": "studyId",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Study",
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "args": [],
+              "description": "A study object",
+              "name": "study",
+              "type": {
+                "kind": "OBJECT",
+                "name": "Study",
+                "ofType": null
               }
             },
             {
@@ -2352,19 +2419,9 @@
           "possibleTypes": null
         },
         {
-          "description": "This element represent a overlap between two stduies",
+          "description": "This element represents an overlap between two studies",
           "enumValues": null,
           "fields": [
-            {
-              "args": [],
-              "description": "A study object",
-              "name": "study",
-              "type": {
-                "kind": "OBJECT",
-                "name": "Study",
-                "ofType": null
-              }
-            },
             {
               "args": [],
               "description": "Orig variant id which is been used for computing the overlap with the referenced study",
@@ -2386,12 +2443,61 @@
                   }
                 }
               }
+            },
+            {
+              "args": [],
+              "description": "A study object",
+              "name": "study",
+              "type": {
+                "kind": "OBJECT",
+                "name": "Study",
+                "ofType": null
+              }
             }
           ],
           "inputFields": null,
           "interfaces": [],
           "kind": "OBJECT",
           "name": "OverlappedVariantsStudies",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "index",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "size",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "Pagination",
           "possibleTypes": null
         },
         {
@@ -2447,11 +2553,45 @@
           "fields": [
             {
               "args": [],
-              "description": "Study Object",
-              "name": "study",
+              "description": null,
+              "name": "studyId",
               "type": {
-                "kind": "OBJECT",
-                "name": "Study",
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": "Effect Allele Frequency",
+              "name": "eaf",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "beta",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": "Standard error",
+              "name": "se",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               }
             },
@@ -2471,17 +2611,7 @@
             },
             {
               "args": [],
-              "description": "beta",
-              "name": "beta",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "total sample size (variant level)",
+              "description": "Total sample size (variant level)",
               "name": "nTotal",
               "type": {
                 "kind": "SCALAR",
@@ -2491,7 +2621,7 @@
             },
             {
               "args": [],
-              "description": "number of cases",
+              "description": null,
               "name": "nCases",
               "type": {
                 "kind": "SCALAR",
@@ -2501,28 +2631,18 @@
             },
             {
               "args": [],
+              "description": "Study Object",
+              "name": "study",
+              "type": {
+                "kind": "OBJECT",
+                "name": "Study",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
               "description": "Odds ratio (if case control)",
               "name": "oddsRatio",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Effect Allele Frequency",
-              "name": "eaf",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Standard Error",
-              "name": "se",
               "type": {
                 "kind": "SCALAR",
                 "name": "Float",
@@ -2808,6 +2928,20 @@
           "enumValues": null,
           "fields": [
             {
+              "args": [],
+              "description": "Return Open Targets Genetics API metadata",
+              "name": "meta",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Metadata",
+                  "ofType": null
+                }
+              }
+            },
+            {
               "args": [
                 {
                   "defaultValue": null,
@@ -2825,21 +2959,11 @@
                 },
                 {
                   "defaultValue": null,
-                  "description": "pagination index >= 0",
-                  "name": "pageIndex",
+                  "description": null,
+                  "name": "page",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
-                },
-                {
-                  "defaultValue": null,
-                  "description": "pagination size > 0",
-                  "name": "pageSize",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
+                    "kind": "INPUT_OBJECT",
+                    "name": "Pagination",
                     "ofType": null
                   }
                 }
@@ -4681,12 +4805,12 @@
           "possibleTypes": null
         },
         {
-          "description": "This element contains all study fields",
+          "description": null,
           "enumValues": null,
           "fields": [
             {
               "args": [],
-              "description": "Study Identifier",
+              "description": null,
               "name": "studyId",
               "type": {
                 "kind": "NON_NULL",
@@ -4710,6 +4834,16 @@
                   "name": "String",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "args": [],
+              "description": "Database or BioBank providing the study",
+              "name": "source",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             {
@@ -4766,7 +4900,7 @@
             },
             {
               "args": [],
-              "description": "Publication Title",
+              "description": null,
               "name": "pubTitle",
               "type": {
                 "kind": "SCALAR",
@@ -4776,7 +4910,7 @@
             },
             {
               "args": [],
-              "description": "Publication author",
+              "description": null,
               "name": "pubAuthor",
               "type": {
                 "kind": "SCALAR",
@@ -4786,8 +4920,8 @@
             },
             {
               "args": [],
-              "description": "Contains summary stats info",
-              "name": "hasSumsStats",
+              "description": "Contains summary statistical information",
+              "name": "hasSumstats",
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
@@ -4796,7 +4930,7 @@
             },
             {
               "args": [],
-              "description": "Ancestry initial",
+              "description": null,
               "name": "ancestryInitial",
               "type": {
                 "kind": "NON_NULL",
@@ -4818,7 +4952,7 @@
             },
             {
               "args": [],
-              "description": "Ancestry replication",
+              "description": null,
               "name": "ancestryReplication",
               "type": {
                 "kind": "NON_NULL",
@@ -4840,7 +4974,7 @@
             },
             {
               "args": [],
-              "description": "N initial",
+              "description": null,
               "name": "nInitial",
               "type": {
                 "kind": "SCALAR",
@@ -4850,7 +4984,7 @@
             },
             {
               "args": [],
-              "description": "N replication",
+              "description": null,
               "name": "nReplication",
               "type": {
                 "kind": "SCALAR",
@@ -4860,8 +4994,28 @@
             },
             {
               "args": [],
-              "description": "N cases",
+              "description": null,
               "name": "nCases",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "traitCategory",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "numAssocLoci",
               "type": {
                 "kind": "SCALAR",
                 "name": "Long",
@@ -4880,26 +5034,6 @@
                   "name": "Long",
                   "ofType": null
                 }
-              }
-            },
-            {
-              "args": [],
-              "description": "Trait category",
-              "name": "traitCategory",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Number of associated loci",
-              "name": "numAssocLoci",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Long",
-                "ofType": null
               }
             }
           ],
@@ -5765,43 +5899,9 @@
           "possibleTypes": null
         },
         {
-          "description": "This element represents a variant object",
+          "description": null,
           "enumValues": null,
           "fields": [
-            {
-              "args": [],
-              "description": "Variant ID",
-              "name": "id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "description": "Variant ID GRCH37",
-              "name": "idB37",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "args": [],
-              "description": "Approved symbol name of a gene",
-              "name": "rsId",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
             {
               "args": [],
               "description": "Ensembl Gene ID of a gene",
@@ -5832,7 +5932,45 @@
             },
             {
               "args": [],
-              "description": "chrom id GRCH37",
+              "description": null,
+              "name": "refAllele",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "altAllele",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": "Approved symbol name of a gene",
+              "name": "rsId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "description": "chrom ID GRCH37",
               "name": "chromosomeB37",
               "type": {
                 "kind": "SCALAR",
@@ -5852,22 +5990,8 @@
             },
             {
               "args": [],
-              "description": "Ref allele",
-              "name": "refAllele",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "description": "Alt allele",
-              "name": "altAllele",
+              "description": "Variant ID",
+              "name": "id",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -6066,6 +6190,59 @@
           "possibleTypes": null
         },
         {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "description": null,
+              "name": "major",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "minor",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "description": null,
+              "name": "patch",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "Version",
+          "possibleTypes": null
+        },
+        {
           "description": "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL\u2019s execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.",
           "enumValues": null,
           "fields": [
@@ -6174,6 +6351,10 @@
             {
               "description": "Location adjacent to an inline fragment.",
               "name": "INLINE_FRAGMENT"
+            },
+            {
+              "description": "Location adjacent to a variable definition.",
+              "name": "VARIABLE_DEFINITION"
             },
             {
               "description": "Location adjacent to a schema definition.",
@@ -6444,6 +6625,16 @@
           "description": "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.",
           "enumValues": null,
           "fields": [
+            {
+              "args": [],
+              "description": null,
+              "name": "description",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
             {
               "args": [],
               "description": "A list of all types supported by this server.",

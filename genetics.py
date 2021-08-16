@@ -9,7 +9,7 @@ import numpy as np
 
 
 class Genetics:
-    url = 'http://genetics-api.opentargets.io/graphql'
+    url = 'https://api.genetics.opentargets.org/graphql'
     endpoint = HTTPEndpoint(url)
 
     def genes_for_variant(self, variants, data_frame=True):
