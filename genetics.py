@@ -83,7 +83,7 @@ class Genetics:
             return pd.json_normalize(data['data'].values(), sep='_')
         else:
             result = (op+data)
-            return {x: getattr(result, f'alias_{x}') for x in study_ids}
+            return {x: getattr(result, f'alias_{x}') for x in variant_ids}
         
 
     def top_overlapped_studies(self, study_ids, data_frame=True):
